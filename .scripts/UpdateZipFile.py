@@ -92,7 +92,7 @@ mod_exists=requests.get(f'https://mods.factorio.com/api/mods/{repo.name}').statu
 
 #Get list files to update
 if mod_exists and readme is not None:
-    response=requests.post("https://mods.factorio.com/api/v2/mods/edit_details",data=data)
+    response=requests.post("https://mods.factorio.com/api/v2/mods/edit_details",data=data, headers=request_headers)
     
     if not response.ok:
         print(f"edit failed: {response.text}")
