@@ -54,7 +54,8 @@
 		"script",
 		"rendering",
 		"game",
-		"commands"
+		"commands",
+		"c:\\Program Files\\Factorio\\data"
 	],
 	"Lua.intelliSense.searchDepth": 3,
 	"Lua.diagnostics.workspaceDelay": 50,
@@ -74,5 +75,16 @@
 	],
 	"triggerTaskOnSave.tasks": {
 		"Luacheck": ["*.lua"]
-	}
+	},
+	"factorio.versions": [
+		{
+			"name": "System",
+			"factorioPath": "C:\\Program Files\\Factorio\\bin\\x64\\factorio.exe",
+			"active": true
+		}
+	],
+	"Lua.workspace.userThirdParty": [
+		"c:\\Users\\Nicolas Blexmann\\AppData\\Roaming\\Code\\User\\workspaceStorage\\d8a8a9a1b7bbb9cd4a9e637e3389e80d\\justarandomgeek.factoriomod-debug\\sumneko-3rd",
+		"c:\\Users\\Nicolas Blexmann\\AppData\\Roaming\\Code\\User\\workspaceStorage\\ce693c6c27549de76f888b9ebf316f3e\\justarandomgeek.factoriomod-debug\\sumneko-3rd"
+	]
 }
