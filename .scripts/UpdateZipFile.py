@@ -80,7 +80,6 @@ if not response.ok:
     sys.exit(1)
 
 upload_url = response.json()["upload_url"]
-
 data={
     description: repo.get_contents("README.md").decoded_content.decode(),
     category:os.getenv("MOD_CATEGORY"),
