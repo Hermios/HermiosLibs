@@ -74,7 +74,7 @@ with ZipFile(f"{zip_file_name}.zip", "w") as zf:
 request_headers = {"Authorization": f"Bearer {os.environ['FACTORIO_MOD_API_KEY']}"}
 
 # Get readmecontent
-list_filenames=[lambda f:f.filename,repo.get_pull(pull_request["number"]).get_files()]
+list_filenames=[f.filename for f in repo.get_pull(pull_request["number"]).get_files()]
 readme=None
 if "README.md" in list_filenames:
     readme=repo.get_contents("README.md").decoded_content.decode()

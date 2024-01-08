@@ -15,5 +15,5 @@ Lua optimizations:
 - Get first element from a table
 - Get index of element in a table
 - Remove element from a table based on the element itself
-- Does this sentence starts/ends with this string?
+- Check if this sentence starts/ends with this string
 - Deep Clone a table 
