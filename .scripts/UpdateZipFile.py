@@ -82,7 +82,7 @@ readme=None
 if "README.md" in list_filenames:
     readme=repo.get_contents("README.md").decoded_content.decode()
 #Get list files to update
-if mod_exits and readme is not None:
+if mod_exists and readme is not None:
     requests.post("https://mods.factorio.com/api/v2/mods/edit_details",{"description":readme})
 
 #Update url for mod exists or not
