@@ -77,7 +77,7 @@ response = requests.post("https://mods.factorio.com/api/v2/mods/init_publish", d
 
 if not response.ok:
     print(f"init_upload failed: {response.text}")
-    exit(1)
+    #exit(1)
 
 upload_url = response.json()["upload_url"]
 data={
@@ -93,4 +93,4 @@ with open(f"{zip_file_name}.zip", "rb") as f:
 
 if not response.ok:
     print(f"upload failed: {response.text}")
-    exit(1)
+    #exit(1)
