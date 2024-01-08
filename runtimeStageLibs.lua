@@ -55,3 +55,44 @@ function connectAllWires(ent1,ent2)
 		ent1.connect_neighbour(ent2)
 	end
 end
+
+function compareData(comparator,firstData,secondData)
+	if not firstData or not secondData or not comparator then
+		return false
+	end
+	firstData=tonumber(firstData)
+	secondData=tonumber(secondData)
+	if comparator==">" then
+		return firstData>secondData
+	elseif comparator=="=" then
+		return firstData==secondData
+	elseif comparator=="<" then
+		return firstData<secondData
+	end
+end
+
+function getUnitId(entity)
+	if not entity then
+		return
+	end	
+	local result
+	pcall(function () result=entity.id end)
+	if not pcall(function() result=entity.train.id end) then
+		pcall(function () result=entity.unit_number end)
+	end
+	return result
+end
+
+function initDataLibs(init)
+	for _,content in pairs(ListPrototypesData) do
+		content.prototype.__index=content.prototype
+		if init then
+			global[content.globalData]={}
+		end		
+		for index,data in pairs(global[content.globalData]) do
+			content.localData[index]={}
+			setmetatable(content.localData[index],content.prototype)
+			content.localData[index].globalData=data
+		end
+	end
+end

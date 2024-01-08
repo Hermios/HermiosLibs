@@ -1,2 +1,3 @@
-require "dataLibs"
-require "entityLibs"
+require "luaLibs"
+require "prototypeStageLibs"
+require "runtimeStageLibs"

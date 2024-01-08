@@ -71,19 +71,28 @@ with ZipFile(f"{zip_file_name}.zip", "w") as zf:
             zf.write(os.path.join(dirname, filename))
 
 ################################# send mod ###############################
-data = {"mod": repo.name}
 request_headers = {"Authorization": f"Bearer {os.environ['FACTORIO_MOD_API_KEY']}"}
-#Does mod exits
-mod_exists=requests.get(f'https://mods.factorio.com/api/mods/{repo.name}').status_code==200
 
 # Get readmecontent
 list_filenames=[lambda f:f.filename,repo.get_pull(pull_request["number"]).get_files()]
 readme=None
 if "README.md" in list_filenames:
     readme=repo.get_contents("README.md").decoded_content.decode()
+
+data={
+    "mod": repo.name,
+    "description": readme,
+    "category":os.getenv("MOD_CATEGORY"),
+    "license":os.getenv("MOD_LICENCE"),
+    "source_url":repo.url
+}
+
+#Does mod exits
+mod_exists=requests.get(f'https://mods.factorio.com/api/mods/{repo.name}').status_code==200
+
 #Get list files to update
 if mod_exists and readme is not None:
-    requests.post("https://mods.factorio.com/api/v2/mods/edit_details",{"description":readme})
+    requests.post("https://mods.factorio.com/api/v2/mods/edit_details",data=data)
 
 #Update url for mod exists or not
 Init_EndPoint=f"https://mods.factorio.com/api/v2/mods/{'releases/init_upload' if mod_exists else 'init_publish'}"
@@ -95,16 +104,10 @@ if not response.ok:
     exit(1)
 
 upload_url = response.json()["upload_url"]
-data={
-    "description": readme,
-    "category":os.getenv("MOD_CATEGORY"),
-    "license":os.getenv("MOD_LICENCE"),
-    "source_url":repo.url
-}
+
 with open(f"{zip_file_name}.zip", "rb") as f:
     request_body = {"file": f}
-    requests.post(upload_url, files=request_body, data={"description": "# published via API"})
-
+    requests.post(upload_url, files=request_body, data=data)
 
 if not response.ok:
     print(f"upload failed: {response.text}")
