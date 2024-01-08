@@ -74,6 +74,11 @@ request_body = data = f"{zip_file_name}.zip"
 request_headers = {"Authorization": f"Bearer {os.environ['FACTORIO_MOD_API_KEY']}"}
 
 response = requests.post("https://mods.factorio.com/api/v2/mods/init_publish", data=request_body, headers=request_headers)
+
+if not response.ok:
+    print(f"init_upload failed: {response.text}")
+    sys.exit(1)
+
 upload_url = response.json()["upload_url"]
 
 data={
@@ -85,3 +90,8 @@ data={
 with open(f"{zip_file_name}.zip", "rb") as f:
     request_body = {"file": f}
     requests.post(upload_url, files=request_body, data={"description": "# published via API"})
+
+
+if not response.ok:
+    print(f"upload failed: {response.text}")
+    sys.exit(1)
