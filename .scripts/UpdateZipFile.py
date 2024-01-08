@@ -70,7 +70,7 @@ with ZipFile(f"{zip_file_name}.zip", "w") as zf:
             zf.write(os.path.join(dirname, filename))
 
 ################################# send mod ###############################
-data = {mod: f"{zip_file_name}.zip"}
+data = {"mod": f"{zip_file_name}.zip"}
 request_headers = {"Authorization": f"Bearer {os.environ['FACTORIO_MOD_API_KEY']}"}
 
 response = requests.post("https://mods.factorio.com/api/v2/mods/init_publish", data=data, headers=request_headers)
@@ -81,10 +81,10 @@ if not response.ok:
 
 upload_url = response.json()["upload_url"]
 data={
-    description: repo.get_contents("README.md").decoded_content.decode(),
-    category:os.getenv("MOD_CATEGORY"),
-    license:os.getenv("MOD_LICENCE"),
-    source_url:repo.url
+    "description": repo.get_contents("README.md").decoded_content.decode(),
+    "category":os.getenv("MOD_CATEGORY"),
+    "license":os.getenv("MOD_LICENCE"),
+    "source_url":repo.url
 }
 with open(f"{zip_file_name}.zip", "rb") as f:
     request_body = {"file": f}
