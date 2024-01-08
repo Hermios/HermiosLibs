@@ -1,18 +1,5 @@
 ListPrototypesData={}
 changing_keys={"name","place_result","corpse","result","icon","filename","placed_as_equipment_result"}
-function initDataLibs(init)
-	for _,content in pairs(ListPrototypesData) do
-		content.prototype.__index=content.prototype
-		if init then
-			global[content.globalData]={}
-		end		
-		for index,data in pairs(global[content.globalData]) do
-			content.localData[index]={}
-			setmetatable(content.localData[index],content.prototype)
-			content.localData[index].globalData=data
-		end
-	end
-end
 local listKeysSetTo1={"x","y","height","width","frame_count","line_length","direction_count"}
 
 local function recursiveSetEntityAsInvisible(entityTable)
@@ -48,35 +35,12 @@ local function recursiveSetEntityAsInvisible(entityTable)
 end
 
 function setEntityAsInvisible(entity)
-	local variations=1
 	recursiveSetEntityAsInvisible(entity)
 	entity.drawing_box = nil
 	entity.collision_box = nil
     entity.selection_box = nil
 	entity.corpse=nil
 	return entity
-end
-
-function getUnitId(entity)
-	if not entity then
-		return
-	end	
-	local result
-	pcall(function () result=entity.id end)
-	if not pcall(function() result=entity.train.id end) then
-		pcall(function () result=entity.unit_number end)
-	end
-	return result
-end
-
-function getFirstKey(dictionary)
-if not dictionary then
-	return nil
-end
-for key,_ in pairs(dictionary) do
-	return key
-end
-return nil
 end
 
 local function recursiveCopyDataTable(oldTable,oldString,newString)
@@ -115,70 +79,4 @@ createData=function(objectType,original,newName,newData)
 	end
 	data:extend({newEntity})	
 	return newEntity
-end
-
-has_value =function(tab, val)
-    for _, value in ipairs (tab) do
-        if value == val then
-            return true
-        end
-    end
-    return false
-end
-
-get_index=function(tab,val)
-	while tab[i]~=nil and tab[i]~=val do
-		i=i+1
-	end
-	if tab[i]==nil then
-		return nil
-	else
-		return i
-	end
-end
-
-function removeVal(tab,val)
-	table.remove(tab,get_index(tab,val))
-end
-
-function distance(entity1, entity2)
-	local position1=entity1.position
-	local position2=entity2.position
-	return ((position1.x - position2.x)^2 + (position1.y - position2.y)^2)^0.5
-end
-
-function string.starts(String,Start)
-   return string.sub(String,1,string.len(Start))==Start
-end
-
-function string.ends(String,End)
-   return End=='' or string.sub(String,-string.len(End))==End
-end
-
-function clone(initTable)	
-	if not initTable or type(initTable)~='table' then
-		return initTable
-	end
-	local result={}
-	for key,value in pairs(initTable) do
-		if not string.starts(key,"_") then
-			result[key]=clone(value)
-		end
-	end
-	return result
-end
-
-function compareData(comparator,firstData,secondData)
-	if not firstData or not secondData or not comparator then
-		return false
-	end
-	firstData=tonumber(firstData)
-	secondData=tonumber(secondData)
-	if comparator==">" then
-		return firstData>secondData
-	elseif comparator=="=" then
-		return firstData==secondData
-	elseif comparator=="<" then
-		return firstData<secondData
-	end
 end
