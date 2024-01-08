@@ -31,6 +31,7 @@ jobs:
         env:
           PULL_REQUEST: ${{ toJson(github.event.pull_request) }}
           OAUTH_TOKEN: ${{ secrets.OAUTH_TOKEN }}
+          FACTORIO_MOD_API_KEY: ${{ secrets.FACTORIO_MOD_API_KEY }}
         run: python .scripts/UpdateZipFile.py
     
   ## build:
