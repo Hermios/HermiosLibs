@@ -6,7 +6,6 @@ function getFirstKey(dictionary)
         return key
     end
     return nil
-    end
 end
 
 has_value =function(tab, val)
@@ -35,21 +34,21 @@ end
 
 function string.starts(String,Start)
     return string.sub(String,1,string.len(Start))==Start
- end
- 
- function string.ends(String,End)
+end
+
+function string.ends(String,End)
     return End=='' or string.sub(String,-string.len(End))==End
- end
- 
- function clone(initTable)	
-     if not initTable or type(initTable)~='table' then
-         return initTable
-     end
-     local result={}
-     for key,value in pairs(initTable) do
-         if not string.starts(key,"_") then
-             result[key]=clone(value)
-         end
-     end
-     return result
- end 
+end
+
+function clone(initTable)	
+    if not initTable or type(initTable)~='table' then
+        return initTable
+    end
+    local result={}
+    for key,value in pairs(initTable) do
+        if not string.starts(key,"_") then
+            result[key]=clone(value)
+        end
+    end
+    return result
+end
