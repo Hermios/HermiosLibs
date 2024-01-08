@@ -89,19 +89,22 @@ data={
 
 #Does mod exits
 mod_exists=requests.get(f'https://mods.factorio.com/api/mods/{repo.name}').status_code==200
-print(mod_exists)
-print(readme)
+
 #Get list files to update
 if mod_exists and readme is not None:
-    requests.post("https://mods.factorio.com/api/v2/mods/edit_details",data=data)
-
+    response=requests.post("https://mods.factorio.com/api/v2/mods/edit_details",data=data)
+    
+    if not response.ok:
+        print(f"edit failed: {response.text}")
+        exit(1)
+    
 #Update url for mod exists or not
 Init_EndPoint=f"https://mods.factorio.com/api/v2/mods/{'releases/init_upload' if mod_exists else 'init_publish'}"
 
 response = requests.post(Init_EndPoint, data={"mod":repo.name}, headers=request_headers)
 
 if not response.ok:
-    print(f"init_upload failed: {response.text}")
+    print(f"{'init_upload' if mod_exists else 'init_publish'} failed: {response.text}")
     exit(1)
 
 upload_url = response.json()["upload_url"]
