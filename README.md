@@ -11,7 +11,7 @@ In the Runtime Stage:
 - Get unitid of element (entity or train)
 
 Lua optimizations:
-- Does table has value
+- Check if table has value
 - Get first element from a table
 - Get index of element in a table
 - Remove element from a table based on the element itself
