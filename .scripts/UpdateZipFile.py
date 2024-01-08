@@ -27,7 +27,7 @@ os.rename(previous_zip_file_name,zip_file_name)
 
 # remove all non factorio directories
 [shutil.rmtree(d) for d in glob(f"./{zip_file_name}/.*")]
-[shutil.rmtree(d) for d in glob(f"./{zip_file_name}/README.md")]
+os.remove(f"./{zip_file_name}/README.md")
 
 ################################# Set info.json ###############################
 try:
