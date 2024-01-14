@@ -1,4 +1,4 @@
-function getFirstKey(dictionary)
+function get_first_key(dictionary)
     if not dictionary then
         return nil
     end
@@ -28,25 +28,25 @@ get_index=function(tab,val)
 	end
 end
 
-function removeVal(tab,val)
+function remove_value(tab,val)
 	table.remove(tab,get_index(tab,val))
 end
 
-function string.starts(String,Start)
-    return string.sub(String,1,string.len(Start))==Start
+function string.starts(str,startstr)
+    return string.sub(str,1,str.len(startstr))==startstr
 end
 
-function string.ends(String,End)
-    return End=='' or string.sub(String,-string.len(End))==End
+function string.ends(str,endstr)
+    return endstr=='' or string.sub(str,-string.len(endstr))==endstr
 end
 
-function clone(initTable)	
-    if not initTable or type(initTable)~='table' then
-        return initTable
+function clone(inittable)	
+    if not inittable or type(inittable)~='table' then
+        return inittable
     end
     local result={}
-    for key,value in pairs(initTable) do
-        if not string.starts(key,"_") then
+    for key,value in pairs(inittable) do
+        if type(key)~="string" or not string.starts(key,"_") then
             result[key]=clone(value)
         end
     end
