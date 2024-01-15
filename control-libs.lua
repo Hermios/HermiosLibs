@@ -1,11 +1,12 @@
-require "data-libs"
+require "custom-variables"
+require "lua-libs"
+require "runtime-stage-libs"
+require "train-libs"
 
 global.custom_entities=global.custom_entities or {}
-custom_events={}
 custom_prototypes={}
 
 script.on_init(function()
-	init_custom_data()
 	if initlocaldata then initlocaldata() end
 	if initguilibs then initguilibs(true) end
 	if initguibuild then initguibuild() end
@@ -93,22 +94,6 @@ function on_pre_player_mined_item(event)
 	end
 end
 
--- On equipment placed
-function on_player_placed_equipment(event)
-	local custom_prototype=get_custom_prototype(event.equipment)
-	if custom_prototype.on_equipment_placed then
-		custom_prototype.on_equipment_placed(event.equipment)
-	end
-end
-
--- On equipment removed
-function on_player_removed_equipment(event)
-	local custom_prototype=get_custom_prototype(event.equipment)
-	if custom_prototype.on_equipment_removed then
-		custom_prototype.on_equipment_removed(event.equipment)
-	end
-end
-
 -- On Custom key fired
 function initevents()
 	for eventname,_ in pairs(defines.events) do
@@ -121,7 +106,7 @@ function initevents()
 			end
 		end)
 	end
-	for eventName,called_function in pairs(custom_events) do
+	for eventName,called_function in pairs(custom_events or {}) do
 		script.on_event(eventName,function(event)
 			if custom_technology and not game.players[1].force.technologies[custom_technology].researched then
 				return
