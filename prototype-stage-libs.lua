@@ -18,7 +18,7 @@ local invisible_keys_to_update={
 	drawing_box = {{0,0},{0,0}},
 	collision_box = {{0,0},{0,0}},
     selection_box = {{0,0},{0,0}},
-	corpse=nil
+	corpse=""
 }
 
 local function copy_data_table_recursively(oldtable,oldstring,newstring,hide)

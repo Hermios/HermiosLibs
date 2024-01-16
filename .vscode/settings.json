@@ -26,7 +26,10 @@
 		"universal_connector_template",
 		"__DebugAdapter",
 		"__Profiler",
-		"err"
+		"err",
+		"mod_on_built",
+		"mod_on_removed",
+		"mod_on_init"
 	],
 	"Lua.workspace.ignoreDir": [
 			".vscode",

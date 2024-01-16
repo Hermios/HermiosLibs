@@ -12,11 +12,13 @@ script.on_init(function()
 	if initguibuild then initguibuild() end
 	if initcommands then initcommands() end
 	if initremote then initremote() end
+	if mod_on_init then mod_on_init(true) end
 	initevents()
 end)
 
 script.on_load(function()
 	init_custom_data()
+	if mod_on_init then mod_on_init(false) end
 	if initlocaldata then initlocaldata() end
 	if initguilibs then initguilibs() end
 	if initguibuild then initguibuild() end
@@ -40,6 +42,9 @@ end
 ---------------------------------------------------
 -- On entity built
 function on_robot_built_entity(event)
+	if event.created_entity and event.created_entity.valid==false then
+		return
+	end
 	if mod_on_built then
 		mod_on_built(event.created_entity)
 	end
@@ -47,6 +52,9 @@ function on_robot_built_entity(event)
 end
 
 function on_built_entity(event)
+	if event.created_entity and event.created_entity.valid==false then
+		return
+	end
 	if mod_on_built then
 		mod_on_built(event.created_entity)
 	end
@@ -55,6 +63,12 @@ end
 
 -- On entity removed
 function on_robot_pre_mined(event)
+	if event.entity and event.entity.valid==false then
+		return
+	end
+	if mod_on_removed then
+		mod_on_removed(event.entity)
+	end
 	entity=global.custom_entities[event.entity.unit_number]
 	if entity then
 		if entity.on_removed then
@@ -65,6 +79,12 @@ function on_robot_pre_mined(event)
 end
 
 function on_entity_destroyed(event)
+	if event.entity and event.entity.valid==false then
+		return
+	end
+	if mod_on_removed then
+		mod_on_removed(event.entity)
+	end
 	entity=global.custom_entities[event.entity.unit_number]
 	if entity then
 		if entity.on_removed then
@@ -75,6 +95,12 @@ function on_entity_destroyed(event)
 end
 
 function on_entity_died(event)
+	if event.entity and event.entity.valid==false then
+		return
+	end
+	if mod_on_removed then
+		mod_on_removed(event.entity)
+	end
 	entity=global.custom_entities[event.entity.unit_number]
 	if entity then
 		if entity.on_removed then
@@ -85,6 +111,12 @@ function on_entity_died(event)
 end
 
 function on_pre_player_mined_item(event)
+	if event.entity and event.entity.valid==false then
+		return
+	end
+	if mod_on_removed then
+		mod_on_removed(event.entity)
+	end
 	entity=global.custom_entities[event.entity.unit_number]
 	if entity then
 		if entity.on_removed then
