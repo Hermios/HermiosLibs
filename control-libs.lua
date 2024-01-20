@@ -207,7 +207,7 @@ function on_built(entity)
 		custom_entity.prototype_index=index
 		setmetatable(custom_entity, custom_prototype)
 		custom_prototype.__index=custom_prototype
-		global.custom_entities[get_unitid(entity)]=custom_entity
+		global.custom_entities[get_unitid(custom_entity.entity)]=custom_entity
 		if custom_entity.on_built then
 			custom_entity:on_built()
 		end
