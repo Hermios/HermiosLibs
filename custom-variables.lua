@@ -1,3 +1,0 @@
-modname=nil
-custom_technology=nil
-mod_on_tick=nil

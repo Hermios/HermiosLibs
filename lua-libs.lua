@@ -18,6 +18,7 @@ has_value =function(tab, val)
 end
 
 get_index=function(tab,val)
+    i=1
 	while tab[i]~=nil and tab[i]~=val do
 		i=i+1
 	end
@@ -40,15 +41,13 @@ function string.ends(str,endstr)
     return endstr=='' or string.sub(str,-string.len(endstr))==endstr
 end
 
-function clone(inittable)	
-    if not inittable or type(inittable)~='table' then
-        return inittable
+function string.split (inputstr, sep)
+    if sep == nil then
+            sep = "%s"
     end
-    local result={}
-    for key,value in pairs(inittable) do
-        if type(key)~="string" or not string.starts(key,"_") then
-            result[key]=clone(value)
-        end
+    local t={}
+    for str in string.gmatch(inputstr, "([^"..sep.."]+)") do
+            table.insert(t, str)
     end
-    return result
+    return t
 end
