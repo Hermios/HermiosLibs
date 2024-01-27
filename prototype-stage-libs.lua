@@ -1,4 +1,4 @@
-local key_to_update={"name","place_result","corpse","result","icon","placed_as_equipment_result"}
+local key_to_update={"name","place_result","filename","result","icon","placed_as_equipment_result"}
 local invisible_keys_to_update={
 	x=1,
 	y=1,
@@ -8,6 +8,13 @@ local invisible_keys_to_update={
 	line_length=1,
 	direction_count=1,
 	connection_points={{shadow ={},wire ={copper = {0, 0},green = {0, 0},red = {0, 0}}}},
+	circuit_wire_connection_points={{shadow ={},wire ={copper = {0, 0},green = {0, 0},red = {0, 0}}}},
+	circuit_connector_sprites={{
+		led_red={filename="__HermiosLibs__/graphics/icons/empty.png",height=1,width=1},
+		led_green={filename="__HermiosLibs__/graphics/icons/empty.png",height=1,width=1},
+		led_blue={filename="__HermiosLibs__/graphics/icons/empty.png",height=1,width=1},
+		led_light={intensity=0,size=1}
+	}},
 	copper={0,0},
 	green={0,0},
 	red={0,0},
