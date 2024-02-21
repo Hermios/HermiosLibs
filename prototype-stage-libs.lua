@@ -28,13 +28,19 @@ local invisible_keys_to_update={
 	corpse=""
 }
 
-local function copy_data_table_recursively(oldtable,oldstring,newstring,hide)
+local invisible_keys_to_update_for_item={
+	flags={"hidden","not-stackable","hide-from-fuel-tooltip","hide-from-bonus-gui","only-in-cursor"}
+}
+
+local function copy_data_table_recursively(oldtable,oldstring,newstring,hide,is_item)
 	local newtable={}
 	for k,d in pairs(oldtable) do
-		if hide and invisible_keys_to_update[k] and (k~="filename" or string.ends(d,"png")) then
+		if hide and is_item and invisible_keys_to_update_for_item[k] and (k~="filename" or string.ends(d,"png")) then
+			newtable[k]=invisible_keys_to_update_for_item[k]
+		elseif hide and invisible_keys_to_update[k] and (k~="filename" or string.ends(d,"png")) then
 			newtable[k]=invisible_keys_to_update[k]
 		elseif type(d)=="table" then
-			newtable[k]=copy_data_table_recursively(d,oldstring,newstring,hide)
+			newtable[k]=copy_data_table_recursively(d,oldstring,newstring,hide,is_item)
 		elseif has_value(key_to_update,k) and string.find(d,oldstring,1,true) then	
 			newtable[k]=d:gsub(oldstring:gsub("%-","%%-"),newstring):gsub("__base__","__"..modname.."__")
 		else
@@ -45,7 +51,7 @@ local function copy_data_table_recursively(oldtable,oldstring,newstring,hide)
 end
 
 createdata=function(objecttype,original,newname,newdata,hide)
-	newentity=copy_data_table_recursively(data.raw[objecttype][original],original,newname,hide)
+	newentity=copy_data_table_recursively(data.raw[objecttype][original],original,newname,hide,objecttype=="item")
 	for k,d in pairs(newdata or {}) do
 		newentity[k]=d
 	end
