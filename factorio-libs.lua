@@ -128,6 +128,6 @@ function compare_data(value1,comparator,value2)
 	special_comp["≠"]="~="
 	special_comp["≤"]="<="
 	special_comp["≥"]=">="
-	local is_valid,result=pcall("return "..value1..special_comp[comparator] or comparator..value2)
+	local is_valid,result=pcall("return "..value1..(special_comp[comparator] or comparator)..value2)
 	return result
 end
