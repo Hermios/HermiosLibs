@@ -20,7 +20,7 @@ local invisible_keys_to_update={
 	red={0,0},
 	shift={0,0},
 	icon="__HermiosLibs__/graphics/icons/empty.png",
-	flags={"hidden"},
+	flags={"hidden","not-blueprintable","not-deconstructable","not-on-map"},
 	filename="__HermiosLibs__/graphics/entity/empty.png",
 	drawing_box = {{0,0},{0,0}},
 	collision_box = {{0,0},{0,0}},
@@ -29,7 +29,8 @@ local invisible_keys_to_update={
 }
 
 local invisible_keys_to_update_for_item={
-	flags={"hidden","not-stackable","hide-from-fuel-tooltip","hide-from-bonus-gui","only-in-cursor"}
+	flags={"hidden","not-stackable","hide-from-fuel-tooltip","hide-from-bonus-gui","only-in-cursor"},
+	stack_size=1
 }
 
 local function copy_data_table_recursively(oldtable,oldstring,newstring,hide,is_item)
@@ -51,7 +52,9 @@ local function copy_data_table_recursively(oldtable,oldstring,newstring,hide,is_
 end
 
 createdata=function(objecttype,original,newname,newdata,hide)
-	newentity=copy_data_table_recursively(data.raw[objecttype][original],original,newname,hide,objecttype=="item")
+	local old_data=data.raw[objecttype][original]
+	old_data.flags=old_data.flags or {}
+	newentity=copy_data_table_recursively(old_data,original,newname,hide,objecttype=="item")
 	for k,d in pairs(newdata or {}) do
 		newentity[k]=d
 	end

@@ -122,12 +122,18 @@ function get_signal_from_item(item)
 end
 
 function compare_data(value1,comparator,value2)
+	if not value1 or not comparator or not value2 then
+		return false
+	end
 	local special_comp={}
 	special_comp["="]="=="
 	special_comp["!="]="~="
 	special_comp["≠"]="~="
 	special_comp["≤"]="<="
 	special_comp["≥"]=">="
-	local is_valid,result=pcall("return "..value1..(special_comp[comparator] or comparator)..value2)
-	return result
+	local script="return function() return "..value1..(special_comp[comparator] or comparator)..value2.. " end"
+	local length = #script
+	local func, err = load(script)
+	local ok, compare = pcall(func)
+	return compare()
 end

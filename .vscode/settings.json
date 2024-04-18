@@ -91,6 +91,8 @@
 	],
 	"Lua.workspace.userThirdParty": [
 		"c:\\Users\\Nicolas Blexmann\\AppData\\Roaming\\Code\\User\\workspaceStorage\\d8a8a9a1b7bbb9cd4a9e637e3389e80d\\justarandomgeek.factoriomod-debug\\sumneko-3rd",
-		"c:\\Users\\Nicolas Blexmann\\AppData\\Roaming\\Code\\User\\workspaceStorage\\ce693c6c27549de76f888b9ebf316f3e\\justarandomgeek.factoriomod-debug\\sumneko-3rd"
-	]
+		"c:\\Users\\Nicolas Blexmann\\AppData\\Roaming\\Code\\User\\workspaceStorage\\ce693c6c27549de76f888b9ebf316f3e\\justarandomgeek.factoriomod-debug\\sumneko-3rd",
+		"c:\\Users\\Nicolas Blexmann\\AppData\\Roaming\\Code\\User\\workspaceStorage\\25613cb493b93ecf59d94aacf6c86183\\justarandomgeek.factoriomod-debug\\sumneko-3rd"
+	],
+	"Lua.workspace.checkThirdParty": "ApplyInMemory"
 }
