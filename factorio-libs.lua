@@ -50,7 +50,7 @@ function get_unitid(entity)
 	if not entity then
 		return
 	end
-	return 
+	return
 		(entity.object_name=="LuaTrain" and entity.id) or
 		(entity.object_name=="LuaEntity" and entity.unit_number)
 end
